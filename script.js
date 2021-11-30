@@ -1,8 +1,38 @@
-const num = 266219;
-const multiNum = [...String(num)].reduce((multi, item) => +multi * +item);
+//Задание1
+let lang = 'en1'; // 'ru' or 'en'
 
-console.log(multiNum);
+const ruWeekday = 'Понедельник, Вторник, Среда, Четверг, Пятница, Суббота, Воскресенье';
+const enWeekday = 'Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday';
+//через if
+if (lang === 'ru') {
+    console.log(ruWeekday);
+} else if (lang === 'en') {
+    console.log(enWeekday);
+} else {
+    console.log('Ошибка');
+}
 
-const multiNumPow3 = multiNum ** 3;
+//через switch-case
+switch (lang) {
+    case 'ru':
+        console.log(ruWeekday);
+        break;
+    case 'en':
+        console.log(enWeekday);
+        break;
+    default:
+        console.log('Ошибка');
+        break;
+}
 
-console.log(String(multiNumPow3).substr(0, 2));
+//через многомерный массив без ифов и switch
+const weekday = {
+    'ru': ruWeekday,
+    'en': enWeekday
+};
+console.log(weekday?.[lang]);
+
+//Задание2
+let namePerson = 'aSD';
+
+console.log(namePerson === 'Артем' ? 'директор' : namePerson === 'Александр' ? 'преподаватель' : 'студент');
