@@ -8,11 +8,7 @@ const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 function guessTheNumber(attemptQuantity) {
     return function attempt(attemptCount = attemptQuantity, number = random(1, 100)) {
         console.log(number); //Подсказка
-        if (attemptCount === 0) {
-            if (confirm('Попытки закончились, хотите сыграть еще?')) {
-                attempt(attemptQuantity);
-            } else return;
-        }
+
         let answer = prompt('Угадай число от 1 до 100');
 
         if (answer === null) {
