@@ -14,6 +14,9 @@ function guessTheNumber(attemptQuantity) {
         if (answer === null) {
             alert('Игра окончена!');
             return;
+        } else if (isNumber(answer) && +answer < 0 || +answer > 100) {
+            alert('Введи число от 1 до 100!');
+            attempt(attemptCount, number);
         } else if (isNumber(answer) && +answer > number) {
             attemptCount--;
             if (attemptCount !== 0) {
