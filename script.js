@@ -1,12 +1,12 @@
 'use strict';
-const versionA = document.querySelector('#versionA');
-const versionB = document.querySelector('#versionB');
+const versionA = document.querySelector('#version_a');
+const versionB = document.querySelector('#version_b');
 
-const numberOfHoursElement = document.querySelector('#checkHour input');
-const hoursTextElement = document.querySelector('#hourText');
+const numberOfHoursElement = document.querySelector('#check_hour input');
+const hoursTextElement = document.querySelector('#hour_text');
 
-const numberOfSecElement = document.querySelector('#checkSec input');
-const secTextElement = document.querySelector('#secText');
+const numberOfSecElement = document.querySelector('#check_sec input');
+const secTextElement = document.querySelector('#sec_text');
 
 const numeralsWithNouns = (num, nouns) => {
   if (num === 1 || (num > 20 && +String(num)[1] === 1)) {
@@ -18,40 +18,55 @@ const numeralsWithNouns = (num, nouns) => {
   }
 };
 
+const getDateTimeData = () => {
+  let date = new Date();
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth(),
+    monthLong: (() => {
+      let month = new Intl.DateTimeFormat('ru-RU', { month: 'long' }).format(date);
+      return month.substring(0, 1).toUpperCase() + month.substring(1, month.length - 1).toLowerCase() + 'я';
+    })(),
+    weekDay: (() => {
+      let weekDay = new Intl.DateTimeFormat('ru-RU', { weekday: 'long' }).format(date);
+      return weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
+    })(),
+    day: date.getDate(),
+    hours: date.getHours(),
+    minutes: date.getUTCMinutes(),
+    seconds: date.getUTCSeconds(),
+  };
+};
+
 const getTwoDigitNumber = (num) => (String(num).length === 1 ? `0${num}` : num);
 
 const renderDateTime = () => {
-  let date = new Date();
-
-  let weekDay = new Intl.DateTimeFormat('ru-RU', { weekday: 'long' }).format(date);
-  weekDay = weekDay.substring(0, 1).toUpperCase() + weekDay.substring(1).toLowerCase();
-  let month = new Intl.DateTimeFormat('ru-RU', { month: 'long' }).format(date);
-  month = month.substring(0, 1).toUpperCase() + month.substring(1, month.length - 1).toLowerCase() + 'я';
+  let { year, month, monthLong, weekDay, day, hours, minutes, seconds } = getDateTimeData();
 
   versionA.textContent = `
   Сегодня ${weekDay}, 
-  ${date.getDate()}
-  ${month}
-  ${date.getFullYear()} года, 
-  ${date.getHours()} ${numeralsWithNouns(date.getHours(), ['час', 'часа', 'часов'])}
-  ${date.getUTCMinutes()} ${numeralsWithNouns(date.getUTCMinutes(), ['минута', 'минуты', 'минут'])}
-  ${date.getUTCSeconds()} ${numeralsWithNouns(date.getUTCSeconds(), ['секунда', 'секунды', 'секунд'])} `;
+  ${day}
+  ${monthLong}
+  ${year} года, 
+  ${hours} ${numeralsWithNouns(hours, ['час', 'часа', 'часов'])}
+  ${minutes} ${numeralsWithNouns(minutes, ['минута', 'минуты', 'минут'])}
+  ${seconds} ${numeralsWithNouns(seconds, ['секунда', 'секунды', 'секунд'])} `;
 
   versionB.textContent =
-    getTwoDigitNumber(date.getDate()) +
+    getTwoDigitNumber(day) +
     '.' +
-    getTwoDigitNumber(date.getMonth()) +
+    getTwoDigitNumber(month) +
     '.' +
-    date.getFullYear() +
+    year +
     ' - ' +
-    getTwoDigitNumber(date.getHours()) +
+    getTwoDigitNumber(hours) +
     ':' +
-    getTwoDigitNumber(date.getUTCMinutes()) +
+    getTwoDigitNumber(minutes) +
     ':' +
-    getTwoDigitNumber(date.getUTCSeconds());
+    getTwoDigitNumber(seconds);
 };
 setInterval(renderDateTime, 1000);
-//
+
 numberOfHoursElement.addEventListener('input', (e) => {
   hoursTextElement.textContent = numeralsWithNouns(+e.target.value, ['час', 'часа', 'часов']);
 });
