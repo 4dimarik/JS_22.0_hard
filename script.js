@@ -22,7 +22,7 @@ const getDateTimeData = () => {
   let date = new Date();
   return {
     year: date.getFullYear(),
-    month: date.getMonth(),
+    month: date.getMonth() + 1,
     monthLong: (() => {
       let month = new Intl.DateTimeFormat('ru-RU', { month: 'long' }).format(date);
       return month.substring(0, 1).toUpperCase() + month.substring(1, month.length - 1).toLowerCase() + 'я';
