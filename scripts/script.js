@@ -65,7 +65,6 @@ squareBody.addEventListener('click', (e) => {
     }
   }
 });
-
 resetBtn.addEventListener('click', () => {
   squareBody.innerHTML = startBlocks;
 });
