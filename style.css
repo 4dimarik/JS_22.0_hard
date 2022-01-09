@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+.row {
+    margin: 1rem;
+}
+select {
+    padding: 1px 2px;
+}
+input[name="from_value"] {
+    margin-right: 2rem;
+}
+
+button {
+    cursor: pointer;
+}
