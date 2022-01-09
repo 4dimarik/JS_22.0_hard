@@ -3,8 +3,8 @@
 const carList = document.getElementById('cars');
 const selectedCar = document.getElementById('selectedCar');
 
-function setCar(value) {
-  if (car === '') {
+function setCar(car) {
+  if (car) {
     selectedCar.innerHTML = `Тачка ${car.brand} ${car.model}<br>Цена: ${car.price}`;
   } else {
     selectedCar.textContent = carList.value;
@@ -35,9 +35,15 @@ getData('./cars.json').then(({ cars }) => {
       `<option value="${index}">${car.brand}</option>`
     );
   });
+  carList.addEventListener('input', (e) => {
+    if (e.target.value!=="") {
+      const car = cars.filter((car) => car.brand === e.target.value)[0];
+      setCar(cars[e.target.value]);
+    } else {
+      setCar();
+    }
+    
+  });
 });
 
-carList.addEventListener('input', (e) => {
-  const car = cars.filter((car) => car.brand === e.target.value)[0];
-  setCar(car);
-});
+
